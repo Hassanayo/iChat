@@ -1,0 +1,27 @@
+.chatScreenBody {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  overflow-x: hidden;
+}
+.date {
+  background: rgba(61, 112, 184, 0.6);
+  border-radius: 12px;
+  padding: 4px 12px;
+  max-width: 71px;
+  margin: 0 auto;
+  margin-bottom: 24px;
+}
+@media screen and (max-width: 800px) {
+  .chatScreenBody {
+    margin-top: 80px;
+    padding: 0;
+    margin-bottom: 54px;
+    // overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}
