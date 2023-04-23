@@ -35,14 +35,12 @@ export default function ChatApp() {
   const senderId = auth.currentUser.uid;
   //get all users
   useEffect(() => {
+    // get reference of current logged in user
     const usersRef = collection(db, "users");
-    // getDoc(doc(db, "users", currentUser.uid)).then((docSnap) => {
-    //   if (docSnap.exists()) {
-    //     setUserData(docSnap.data());
-    //   }
-    // });
+
     // get query of all users except the current logged in user
     const getAllUsers = query(usersRef, where("uid", "not-in", [senderId]));
+
     const unsubscribe = onSnapshot(getAllUsers, (snapshot) => {
       let usersArr = [];
       snapshot.forEach((doc) => {
@@ -79,13 +77,8 @@ export default function ChatApp() {
       });
     }
   }
-  // get last message from chat
-  // useEffect(() => {
-  //   console.log(users.lastMessage);
-  // }, [users])
   // send message to receiver
   async function sendMessage(e) {
-    console.log("sent");
     e.preventDefault();
     const receiverId = chat.uid;
     const id =
@@ -128,13 +121,8 @@ export default function ChatApp() {
       });
     } catch (error) {
       console.log(error);
-      // setError("Failed to log out");
     }
   }
-  // // open and close modal
-  // function handleModal() {
-  //   setIsOpen(!isOpen);
-  // }
 
   return (
     <LayoutWrapper>

@@ -14,10 +14,16 @@ const firebaseConfig = {
 //initialize firebase
 const app = initializeApp(firebaseConfig);
 
+// initialize firebase database
+export const db = getFirestore(app)
+
+// initialize storage
+export const storage = getStorage(app)
+
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
-export const db = getFirestore(app)
-export const storage = getStorage(app)
+
+// various methods for authentication
 export const methods = {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,

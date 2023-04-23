@@ -18,26 +18,29 @@ export default function Signup() {
     error: null,
     loading: false,
   });
+  // destructure
   const { name, email, password, confirm_pwd, error, loading } = data;
+
   const userRef = useRef();
-  const { signup} = useAuth();
-  const navigate = useNavigate()
+  const { signup } = useAuth();
+  const navigate = useNavigate();
 
   // focus on the first input tab
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
-  // function that handles the change
+  // function that handles the change and updates the data
   function handleChange(e) {
     setData({ ...data, [e.target.name]: e.target.value });
   }
+
   // function that run when we submit the form
   // signup the user and create a document in firestore that contains user information
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(data);
-    if (!name || !email || !password || !password) {
+    if (!name || !email || !password || !confirm_pwd) {
       setData({ ...data, error: "All fields are required" });
     }
     setData({ ...data, error: null, loading: true });
@@ -51,8 +54,9 @@ export default function Signup() {
         createdAt: Timestamp.fromDate(new Date()),
         isOnline: true,
       });
+      // update the loading data and navigate to th login page
       setData({ ...data, loading: false });
-      navigate("/login")
+      navigate("/login");
     } catch (err) {
       setData({ ...data, error: err.message, loading: false });
       console.log("error", err);
@@ -61,12 +65,6 @@ export default function Signup() {
 
   return (
     <SignupContainer>
-      {/* {state.success ? (
-        <section>
-          <h1>Success</h1>
-          <p><a href="/">Sign In</a></p>
-        </section>
-      ) : ( */}
       <section className="form-container">
         <h1 className="header">Sign up</h1>
         <form className="form" onSubmit={handleSubmit}>
@@ -125,7 +123,7 @@ export default function Signup() {
             />
           </div>
           {error ? <p>{error}</p> : null}
-          <button disabled={loading} className="form-btn">
+          <button disabled={loading || password !== confirm_pwd} className="form-btn">
             Sign Up
           </button>
         </form>
